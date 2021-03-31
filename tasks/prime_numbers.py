@@ -3,7 +3,7 @@ n = 10 #specify n
 
 #task: write a program that prints the first n prime numbers
 prime = []
-for i in range(1, 10000000000000000000000000):
+for i in range(1, 1000000000000000000): #comment: I could not find a solution to run from 1 to infinity
     for j in range (2, i):
         if i % j == 0:
             break
