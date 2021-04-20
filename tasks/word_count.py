@@ -1,6 +1,4 @@
-# enter file name:
 file_name = input("Enter the file name: ")
-# start loop to count words
 try:
     text = open(file_name, 'r')
     d1 = dict()
