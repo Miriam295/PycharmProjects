@@ -8,13 +8,8 @@ try:
     for lines in text:
         lines = lines.strip()
         lines = lines.lower()
-        lines = lines.replace(".", "")
-        lines = lines.replace(",", "")
-        lines = lines.replace("?", "")
-        lines = lines.replace("!", "")
-        lines = lines.replace(":", "")
-        lines = lines.replace(";", "")
-        lines = lines.replace("'", "")
+        for x in punctuations:
+            lines = lines.replace(x, "")
         words = lines.split(" ")
         for word in words:
             if word in d1:
@@ -25,11 +20,3 @@ try:
         print('Word: %s appears %s time(s).' % (k, d1[k]))
 except:
     print("File not found.")
-
-#I also saw this approach to replacing punctuation, but couldn't get it to work properly:
-# punctuation = '''.,:;()[]{}/&'/n-?!+'''
-# text_clean = ""
-
-# for char in text:
-#   if char not in punctuation:
-#      text_clean = text_clean + char
