@@ -1,9 +1,9 @@
 #I sadly couldnt finalize this
 #What's still missing: (I basically only finished assignment 2 and started the rest with flaws):
     #Calculation is only saved for last file in loop (as it currently overwrites the old output)
-    #also, somehow the output file is not getting filled with the data
     #and I tried adding the old data + new column together with next() and .append, but:
-        #it adds it always at the wrong position and
+        #when adding, the date is pasted to the end a second time;
+        #the first two rows somehow disappeared;
         #the calculated change does not change with the rows
 
 #search for stock data files and apply function
@@ -40,9 +40,10 @@ for el in stock_files:
                     change_collect += [change]
                     all = []
                     row = next(reader)
+                    row.append('Change')
+                    all.append(row)
                     for row in reader:
                         for row2 in change_collect:
-                            row.append(row[0])
                             row.append(row2)
                             all.append(row)
             writer.writerows(all)
