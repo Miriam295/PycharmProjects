@@ -1,12 +1,12 @@
 #I sadly couldnt finalize this
-#What's still missing: (I basically only finished assignment 2 and started the rest with flaws):
+#What's still missing:
+#(I basically only finished assignment 2 and started the rest with flaws):
     #Calculation is only saved for last file in loop (as it currently overwrites the old output)
     #and I tried adding the old data + new column together with next() and .append, but:
-        #when adding, the date is pasted to the end a second time;
         #the first two rows somehow disappeared;
         #the calculated change does not change with the rows
 
-#search for stock data files and apply function
+#search for stock data files and apply function (completed and works)
 import csv
 from pathlib import Path
 
@@ -23,6 +23,7 @@ for file in files:
             if test == stock_head:
                 stock_files.append(file)
 
+#calculating change rate and adding it to new column (presents a result but is wrong)
 for el in stock_files:
     print(el)
     with open(el, 'r') as input:
