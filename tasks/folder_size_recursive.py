@@ -1,42 +1,31 @@
 #function that calculates file sizes in folder
 import os
-f = 'C:/Users/Miriam/PycharmProjects/tasks'
-g = 'C:/Users/Miriam/PycharmProjects/tasks/bytes'
+folder = input('Enter folder path: ')
+print("For folder", folder, ":")
 
-#use:
-print(os.path.getsize(f))
-print(os.listdir(f))
-
-#trial and error
-names = os.listdir(f)
-print(names)
-
-#https://stackoverflow.com/questions/1392413/calculating-a-directorys-size-using-python
-
-import os
-def get_size(start_path):
+#part 1: total size of folder
+def sum_space(folder):
     total_size = 0
-    for dirpath, dirnames, filenames in os.walk(start_path):
-        for f in filenames:
-            fp = os.path.join(dirpath, f)
-            if not os.path.islink(fp):
-                total_size += os.path.getsize(fp)
-
-    return total_size
-
-print(get_size(g), 'bytes')
-
-print('-----time for recursive ----')
-
-import os
-def getFolderSize(folder):
-    total_size = os.path.getsize(folder)
     for item in os.listdir(folder):
-        itempath = os.path.join(folder, item)
-        if os.path.isfile(itempath):
-            total_size += os.path.getsize(itempath)
-        elif os.path.isdir(itempath):
-            total_size += getFolderSize(itempath)
+        path = os.path.join(folder, item)
+        if os.path.isfile(path):
+            total_size += os.path.getsize(path)
+        elif os.path.isdir(path):
+            total_size += sum_space(path)
     return total_size
 
-print("Size: " + str(getFolderSize(g)) + " bytes")
+print("Total space occupied by folder: " + str(sum_space(folder)) + " bytes")
+
+#part 2: number of files in folder
+
+def sum_count(folder):
+    count = 0
+    for item in os.listdir(folder):
+        path = os.path.join(folder, item)
+        if os.path.isfile(path):
+            count += 1
+        elif os.path.isdir(path):
+            count += sum_count(path)
+    return count
+
+print("Number of files in this folder: " + str(sum_count(folder)) + " folder(s)")
