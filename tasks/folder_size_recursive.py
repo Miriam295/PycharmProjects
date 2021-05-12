@@ -1,7 +1,7 @@
 #function that calculates file sizes in folder
 import os
 folder = input('Enter folder path: ')
-print("For folder", folder, ":")
+print("For folder: ", folder, ":", '\n')
 
 #part 1: total size of folder
 def sum_space(folder):
