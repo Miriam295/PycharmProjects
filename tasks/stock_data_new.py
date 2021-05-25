@@ -1,10 +1,7 @@
-#I sadly couldnt finalize this
 #What's still missing:
-#(I basically only finished assignment 2 and started the rest with flaws):
     #Calculation is only saved for last file in loop (as it currently overwrites the old output)
-    #and I tried adding the old data + new column together with next() and .append, but:
-        #the first two rows somehow disappeared;
-        #the calculated change does not change with the rows
+    #the first row of data (for April 30th) still disappears
+    # the calculated change does not change with the rows
 
 #search for stock data files and apply function (completed and works)
 import csv
@@ -23,7 +20,7 @@ for file in files:
             if test == stock_head:
                 stock_files.append(file)
 
-#calculating change rate and adding it to new column (presents a result but is wrong)
+#calculating change rate and adding it to new column
 for el in stock_files:
     print(el)
     with open(el, 'r') as input:
@@ -38,13 +35,12 @@ for el in stock_files:
                     for k in range(1, 7):
                         line[k] = float(line[k])
                     change = ((line[4] - line[1]) / line[1])
-                    change_collect += [change]
+                    change_collect.append(change)
+                    print(change_collect)
                     all = []
-                    row = next(reader)
-                    row.append('Change')
-                    all.append(row)
                     for row in reader:
-                        for row2 in change_collect:
-                            row.append(row2)
+                        for row2 in range(len(change_collect)):
+                            row.append(change_collect[row2])
                             all.append(row)
+            writer.writerow(['Date', 'Open', 'High', 'Low', 'Close', 'Adj Close', 'Volume', 'Change'])
             writer.writerows(all)
