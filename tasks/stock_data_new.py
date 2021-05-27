@@ -1,9 +1,7 @@
 #What's still missing:
     #Calculation is only saved for last file in loop (as it currently overwrites the old output)
-    #the first row of data (for April 30th) still disappears
-    # the calculated change does not change with the rows
 
-#search for stock data files and apply function (completed and works)
+#search for stock data files and apply function
 import csv
 from pathlib import Path
 
@@ -21,26 +19,26 @@ for file in files:
                 stock_files.append(file)
 
 #calculating change rate and adding it to new column
+for n in range(len(stock_files)):
+    name = f'stock_with_change{n}.csv'
 for el in stock_files:
     print(el)
     with open(el, 'r') as input:
-        with open('stock_with_change.csv', 'w', newline = '') as output:
+        with open(name, 'w', newline='') as output:
             reader = csv.reader(input)
             writer = csv.writer(output)
-            i = 0
+            header = next(reader)
             change_collect = []
+            all = []
             for line in reader:
-                i += 1
-                if i > 1:
+                if header != None:
                     for k in range(1, 7):
                         line[k] = float(line[k])
                     change = ((line[4] - line[1]) / line[1])
-                    change_collect.append(change)
-                    print(change_collect)
-                    all = []
-                    for row in reader:
-                        for row2 in range(len(change_collect)):
-                            row.append(change_collect[row2])
-                            all.append(row)
+                change_collect.append(change)
+                for index in range(len(change_collect)):
+                    line.append(change_collect[-1])
+                    all.append(line)
+                    break
             writer.writerow(['Date', 'Open', 'High', 'Low', 'Close', 'Adj Close', 'Volume', 'Change'])
             writer.writerows(all)
