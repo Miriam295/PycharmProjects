@@ -1,6 +1,3 @@
-#What's still missing:
-    #Calculation is only saved for last file in loop (as it currently overwrites the old output)
-
 #search for stock data files and apply function
 import csv
 from pathlib import Path
@@ -19,12 +16,15 @@ for file in files:
                 stock_files.append(file)
 
 #calculating change rate and adding it to new column
-for n in range(len(stock_files)):
-    name = f'stock_with_change{n}.csv'
+names = []
 for el in stock_files:
     print(el)
+    for n in range(len(stock_files)): #here  (l. 22-26) I tried to get it to work that all new files incl. the change get a different name and don't overwrite each other, but couldn't get it done
+        name = f'stock_with_change{n}.csv'
+        names += [name]
     with open(el, 'r') as input:
-        with open(name, 'w', newline='') as output:
+        name2 = names[n]
+        with open(name2, 'w', newline='') as output:
             reader = csv.reader(input)
             writer = csv.writer(output)
             header = next(reader)
