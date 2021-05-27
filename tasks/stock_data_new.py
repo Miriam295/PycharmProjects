@@ -1,4 +1,5 @@
-#search for stock data files and apply function
+#updated: now calculates and displays the change correctly, saves it in different files for different datasets
+
 import csv
 from pathlib import Path
 
@@ -16,14 +17,20 @@ for file in files:
                 stock_files.append(file)
 
 #calculating change rate and adding it to new column
-names = []
+i = 0
 for el in stock_files:
-    print(el)
-    for n in range(len(stock_files)): #here  (l. 22-26) I tried to get it to work that all new files incl. the change get a different name and don't overwrite each other, but couldn't get it done
-        name = f'stock_with_change{n}.csv'
-        names += [name]
+    #print(el)
+    names = []
+    for n in range(len(stock_files)):
+        if n == i:
+            name = f'stock_with_change{n}.csv'
+            names += [name]
+            #print(names)
+        else:
+            pass
     with open(el, 'r') as input:
-        name2 = names[n]
+        name2 = names[-1]
+        #print(name2)
         with open(name2, 'w', newline='') as output:
             reader = csv.reader(input)
             writer = csv.writer(output)
@@ -42,3 +49,5 @@ for el in stock_files:
                     break
             writer.writerow(['Date', 'Open', 'High', 'Low', 'Close', 'Adj Close', 'Volume', 'Change'])
             writer.writerows(all)
+        print(f'\n Idenfitied stock data file: {el}. \n Calculated change can be found in "{name2}" \n')
+    i = i+1
