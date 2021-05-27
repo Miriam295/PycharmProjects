@@ -1,4 +1,5 @@
 #updated: now calculates and displays the change correctly, saves it in different files for different datasets
+#Sorry for the delay, I appreciate the chance to correct the exercise!
 
 import csv
 from pathlib import Path
