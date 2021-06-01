@@ -1,5 +1,6 @@
 class Customer:
     last_id = 0
+
     def __init__(self, firstname, lastname):
         self.firstname = firstname
         self.lastname = lastname
@@ -12,6 +13,7 @@ class Customer:
 
 class Account:
     last_id = 0
+
     def __init__(self, customer):
         self.customer = customer
         Account.last_id += 1
@@ -27,16 +29,16 @@ class Account:
         if amount < 0:
             raise IncorrectAmountException("Incorrect amount", self._balance)
         if amount > self._balance:
-            raise InsufficientBalanceException("Insufficient Balance, current balance is: " + str(self._balance), self._balance)
-            #raise InsufficientBalanceException("Insufficient Balance, current balance is: " + self._balance)
+            raise InsufficientBalanceException("Insufficient Balance, current balance is: " + str(self._balance),
+                                               self._balance)
+            # raise InsufficientBalanceException("Insufficient Balance, current balance is: " + self._balance)
         self._balance -= amount
 
     def __repr__(self):
         return '{}[{},{},{}]'.format(self.__class__.__name__, self.id, self.customer.lastname, self._balance)
 
 
-
-### new classes
+# new classes
 class SavingsAccount(Account):
     def calc_interest(self, interest):
         if interest <= 0:
@@ -80,10 +82,10 @@ class Bank:
             raise TransferException("Sending account for transfer not found.")
         if to_acc_id not in self.account_list:
             raise TransferException("Receiving account for transfer not found.")
+        if from_acc_id == to_acc_id:
+            raise TransferException("Sending and receiving account are the same.")
         from_acc_id.charge(amount)
         to_acc_id.deposit(amount)
-
-
 
     def __repr__(self):
         return 'Bank[{},{}]'.format(self.customer_list, self.account_list)
@@ -94,23 +96,25 @@ class BankException(Exception):
         super().__init__(msg)
         self.balance = balance
 
+
 class IncorrectAmountException(BankException):
     pass
+
 
 class InsufficientBalanceException(BankException):
     pass
 
+
 class InterestException(BankException):
     pass
+
 
 class AccountTypeException(BankException):
     pass
 
+
 class TransferException(BankException):
     pass
-
-
-
 
 
 bank = Bank()
@@ -134,12 +138,14 @@ try:
     print(t2)
     t1.calc_interest(0.1)
     print(t1)
-    #t1.calc_interest(-0.1) #raises exception because negative
-    #print(t1)
+    # t1.calc_interest(-0.1) #raises exception because negative
+    # print(t1)
     bank.transfer(t1, t2, 1000)
     print(t1)
     print(t2)
-    #bank.transfer(t1, t2, 50000) #raises exception because too high
+    # bank.transfer(t1, t2, 50000) #raises exception because too high
+    # print(t1)
+    #bank.transfer(t1, t1, 100) #raises exception because sending = receiving
     #print(t1)
 except IncorrectAmountException as iae:
     print('Incorrect.. Exception raised: ' + str(iae))
