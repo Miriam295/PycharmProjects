@@ -44,6 +44,7 @@ money = Money()
 
 def choice():
     options = [1,2]
+    time.sleep(2)
     c = int(input("Choose 1 or 2: >> "))
     if c not in options:
         print("Invalid answer. Please enter 1 or 2.")
@@ -60,10 +61,10 @@ def train():
     if c == 1:
         skill.gain_skills()
         print("Well done! You have gained +1 skills and +100 coins, and now feel more confident to start your journey.")
-        time.sleep(1)
+        time.sleep(2)
     if c == 2:
         print("Exciting, isn't it? Your old master also hands you +100 coins for the journey.")
-        time.sleep(1)
+        time.sleep(2)
 
 def market():
     print("\nYou are first passing by the marketplace. There is an old lady who calls you towards her.")
@@ -144,7 +145,8 @@ def dragon():
     print("This is it! The dragon is right in front of you and turns to face you.")
     time.sleep(1)
     print("\nIt speaks! It makes you an offer: Instead of fighting you, it would take 100 gold coins to leave.")
-    print("You check your resources and skills level before deciding:")
+    time.sleep(1)
+    print("\nYou check your resources and skills level before deciding:")
     print(skill)
     print(money)
     print("\nSo what will it be? 1 - Fight. 2 - Pay.")
@@ -182,7 +184,7 @@ def start():
     if c == 1:
         game_on()
     if c == 2:
-        print("Maybe another time then, Pyland is looking forward to welcoming you again!")
+        print("\nMaybe another time then, Pyland is looking forward to welcoming you again!")
 
 def game_on():
     train()
@@ -192,7 +194,7 @@ def game_on():
     dragon()
 
 def play_again():
-    print("Do you want to play again?")
+    print("\nDo you want to play again?")
     print("1 - Yes. 2 - No.")
     start()
 
